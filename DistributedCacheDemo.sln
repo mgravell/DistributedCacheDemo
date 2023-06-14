@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33808.371
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedCacheDemo", "DistributedCacheDemo.csproj", "{4FC91CE7-87A6-47E6-A89E-D7063682D040}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedCacheDemo", "DistributedCacheDemo.csproj", "{842975E9-1869-44A0-A09D-4D41269F7DE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4FC91CE7-87A6-47E6-A89E-D7063682D040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FC91CE7-87A6-47E6-A89E-D7063682D040}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FC91CE7-87A6-47E6-A89E-D7063682D040}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FC91CE7-87A6-47E6-A89E-D7063682D040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842975E9-1869-44A0-A09D-4D41269F7DE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842975E9-1869-44A0-A09D-4D41269F7DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842975E9-1869-44A0-A09D-4D41269F7DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842975E9-1869-44A0-A09D-4D41269F7DE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {29D0DFC5-A624-41E1-9EB0-66B981D5890D}
+		SolutionGuid = {B6EE5C0A-79F7-4231-AD1B-199F332796AF}
 	EndGlobalSection
 EndGlobal

@@ -1,25 +1,13 @@
 using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
-
 app.MapGet("/sync", async (IDistributedCache cache, CancellationToken abort) =>
 {
-    var timeObject = await cache.GetAsync("sync time cache key", () => {
+    var timeObject = await cache.GetAsync("sync time cache key", () =>
+    {
         // perform some potentially expensive operation when the cache data is
         // unavailable; this could take to databases, http APIs, etc
         return new { Time = DateTime.UtcNow }; // this could be a complex object with multiple values
@@ -28,7 +16,8 @@ app.MapGet("/sync", async (IDistributedCache cache, CancellationToken abort) =>
 });
 app.MapGet("/async", async (IDistributedCache cache, CancellationToken abort) =>
 {
-    var timeObject = await cache.GetAsync("async time cache key", async ct => {
+    var timeObject = await cache.GetAsync("async time cache key", async ct =>
+    {
         // perform some potentially expensive operation when the cache data is
         // unavailable; this could take to databases, http APIs, etc
         await Task.Delay(2000, ct);
@@ -43,11 +32,12 @@ app.MapGet("/{foo}/{bar}/sync", async (string foo, string bar, IDistributedCache
     // state, and therefore does not require per-call allocations)
     var timeObject = await cache.GetAsync($"{foo}:{bar} sync time cache key", // note we partition the cache by foo/bar via the key
         (Foo: foo, Bar: bar), // state values
-        static state => {
-        // perform some potentially expensive operation when the cache data is
-        // unavailable; this could take to databases, http APIs, etc
-        return new { Time = DateTime.UtcNow, state.Foo, state.Bar }; // this could be a complex object with multiple values
-    }, CacheOptions.TenSeconds, abort);
+        static state =>
+        {
+            // perform some potentially expensive operation when the cache data is
+            // unavailable; this could take to databases, http APIs, etc
+            return new { Time = DateTime.UtcNow, state.Foo, state.Bar }; // this could be a complex object with multiple values
+        }, CacheOptions.TenSeconds, abort);
     return $"The time reported (sync getter, {timeObject.Foo}/{timeObject.Bar}) is: {timeObject.Time}";
 });
 app.MapGet("/{foo}/{bar}/async", async (string foo, string bar, IDistributedCache cache, CancellationToken abort) =>
@@ -57,7 +47,8 @@ app.MapGet("/{foo}/{bar}/async", async (string foo, string bar, IDistributedCach
     // state, and therefore does not require per-call allocations)
     var timeObject = await cache.GetAsync($"{foo}:{bar} async time cache key", // note we partition the cache by foo/bar via the key
         (Foo: foo, Bar: bar), // state values
-        static async (state, ct) => {
+        static async (state, ct) =>
+        {
             // perform some potentially expensive operation when the cache data is
             // unavailable; this could take to databases, http APIs, etc
             await Task.Delay(2000, ct);
@@ -66,8 +57,6 @@ app.MapGet("/{foo}/{bar}/async", async (string foo, string bar, IDistributedCach
     return $"The time reported (async getter, {timeObject.Foo}/{timeObject.Bar}) is: {timeObject.Time}";
 });
 
-app.UseRouting();
-app.UseAuthorization();
 app.Run();
 
 static class CacheOptions
