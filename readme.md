@@ -1,4 +1,9 @@
-﻿The purpose of this example is to show helper APIs for using `IDistributedCache`, so that callers
+﻿Problem statement:
+
+The `IDistributedCache` API is very minimal, requiring a lot of boilerplate code to check for values,
+get missing values, serialize, deserialize, etc; this makes actually using the cache overly complex.
+
+The purpose of this example is to show helper APIs for using `IDistributedCache`, so that callers
 can reuse common code for the caching aspects, and focus on the things that impact *them*:
 
 - what the key is (specified only once)
