@@ -11,7 +11,7 @@ app.MapGet("/sync", async (IDistributedCache cache, CancellationToken abort) =>
         // perform some potentially expensive operation when the cache data is
         // unavailable; this could take to databases, http APIs, etc
         return new { Time = DateTime.UtcNow }; // this could be a complex object with multiple values
-    }, CacheOptions.TenSeconds, abort);
+    }, CacheOptions.ThirtySeconds, abort);
     return $"The time reported (sync getter) is: {timeObject.Time}";
 });
 app.MapGet("/async", async (IDistributedCache cache, CancellationToken abort) =>
@@ -20,9 +20,9 @@ app.MapGet("/async", async (IDistributedCache cache, CancellationToken abort) =>
     {
         // perform some potentially expensive operation when the cache data is
         // unavailable; this could take to databases, http APIs, etc
-        await Task.Delay(2000, ct);
+        await Task.Delay(2000, ct); // simulate an expensive operation
         return new { Time = DateTime.UtcNow }; // this could be a complex object with multiple values
-    }, CacheOptions.TenSeconds, abort);
+    }, CacheOptions.ThirtySeconds, abort);
     return $"The time reported (async getter) is: {timeObject.Time}";
 });
 app.MapGet("/{foo}/{bar}/sync", async (string foo, string bar, IDistributedCache cache, CancellationToken abort) =>
@@ -37,7 +37,7 @@ app.MapGet("/{foo}/{bar}/sync", async (string foo, string bar, IDistributedCache
             // perform some potentially expensive operation when the cache data is
             // unavailable; this could take to databases, http APIs, etc
             return new { Time = DateTime.UtcNow, state.Foo, state.Bar }; // this could be a complex object with multiple values
-        }, CacheOptions.TenSeconds, abort);
+        }, CacheOptions.ThirtySeconds, abort);
     return $"The time reported (sync getter, {timeObject.Foo}/{timeObject.Bar}) is: {timeObject.Time}";
 });
 app.MapGet("/{foo}/{bar}/async", async (string foo, string bar, IDistributedCache cache, CancellationToken abort) =>
@@ -51,9 +51,9 @@ app.MapGet("/{foo}/{bar}/async", async (string foo, string bar, IDistributedCach
         {
             // perform some potentially expensive operation when the cache data is
             // unavailable; this could take to databases, http APIs, etc
-            await Task.Delay(2000, ct);
+            await Task.Delay(2000, ct); // simulate an expensive operation
             return new { Time = DateTime.UtcNow, state.Foo, state.Bar }; // this could be a complex object with multiple values
-        }, CacheOptions.TenSeconds, abort);
+        }, CacheOptions.ThirtySeconds, abort);
     return $"The time reported (async getter, {timeObject.Foo}/{timeObject.Bar}) is: {timeObject.Time}";
 });
 
@@ -61,5 +61,5 @@ app.Run();
 
 static class CacheOptions
 {
-    public static DistributedCacheEntryOptions TenSeconds { get; } = new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10) };
+    public static DistributedCacheEntryOptions ThirtySeconds { get; } = new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) };
 }
