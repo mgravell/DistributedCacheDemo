@@ -2,6 +2,12 @@ using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
+// alternatively, use Redis, SQL Server, etc
+//builder.Services.AddStackExchangeRedisCache(options =>
+//{
+//    options.Configuration = builder.Configuration.GetConnectionString("MyRedisConStr");
+//    options.InstanceName = "SampleInstance";
+//});
 var app = builder.Build();
 
 app.MapGet("/sync", async (IDistributedCache cache, CancellationToken abort) =>
