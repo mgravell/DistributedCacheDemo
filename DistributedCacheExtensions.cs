@@ -124,8 +124,7 @@ public static class DistributedCacheExtensions
     // the old data is simply not found (and expires naturally)
     private static T Deserialize<T>(byte[] bytes)
     {
-        var payload = new Utf8JsonReader(bytes);
-        return JsonSerializer.Deserialize<T>(ref payload)!;
+        return JsonSerializer.Deserialize<T>(bytes)!;
     }
 
     private static byte[] Serialize<T>(T value)
